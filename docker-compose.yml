@@ -19,8 +19,9 @@ services:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       DB_NAME: ${POSTGRES_DB}
-      spring.jwt.secret: ${JWT_SECRET}
-      spring.jwt.expiration: 3600000   # 1 hour in ms
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
+      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
     depends_on:
       - postgres
     restart: always
@@ -36,8 +37,9 @@ services:
       DB_USER: ${MONGO_USER}
       DB_PASSWORD: ${MONGO_PASSWORD}
       DB_NAME: ${MONGO_DB}
-      spring.jwt.secret: ${JWT_SECRET}
-      spring.jwt.expiration: 3600000   # 1 hour in ms
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
+      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
     depends_on:
       - mongodb
     restart: always
