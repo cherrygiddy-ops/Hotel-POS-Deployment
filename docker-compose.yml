@@ -3,7 +3,7 @@ services:
     image: ghcr.io/cherrygiddy-ops/hotelpos_frontend:latest
     container_name: frontend
     ports:
-      - "80:80"
+      - "8085:80"   # frontend now exposed on 8085 instead of 80
     restart: always
 
   authservice:
@@ -21,7 +21,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/   # <-- added
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
     depends_on:
       - postgres
       - eureka
@@ -42,7 +42,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/   # <-- added for orderservice too
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
     depends_on:
       - mongodb
       - eureka
