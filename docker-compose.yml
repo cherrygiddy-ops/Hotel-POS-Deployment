@@ -25,6 +25,7 @@ services:
     restart: always
 
 
+
   frontend:
     image: ghcr.io/cherrygiddy-ops/hotelpos_frontend:latest
     container_name: frontend
@@ -36,6 +37,7 @@ services:
       - hotelpos_net
 
     restart: always
+
 
 
   authservice:
@@ -82,7 +84,6 @@ services:
       - "8082:8082"
 
     environment:
-
       SPRING_PROFILES_ACTIVE: prod
 
       DB_HOST: ${MONGO_HOST}
@@ -97,15 +98,12 @@ services:
 
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
 
-
     depends_on:
-
       mongodb:
         condition: service_healthy
 
       eureka:
         condition: service_started
-
 
     networks:
       - hotelpos_net
@@ -121,16 +119,11 @@ services:
     ports:
       - "8081:8081"
 
-
     environment:
-
       SPRING_PROFILES_ACTIVE: prod
-
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
 
-
     depends_on:
-
       eureka:
         condition: service_started
 
@@ -140,13 +133,10 @@ services:
       orderservice:
         condition: service_started
 
-
     networks:
       - hotelpos_net
 
-
     restart: always
-
 
 
 
@@ -154,22 +144,16 @@ services:
     image: ghcr.io/cherrygiddy-ops/hotelpos_eureka:latest
     container_name: eureka
 
-
     ports:
       - "8761:8761"
 
-
     environment:
-
       SPRING_PROFILES_ACTIVE: prod
-
 
     networks:
       - hotelpos_net
 
-
     restart: always
-
 
 
 
@@ -177,44 +161,31 @@ services:
     image: postgres:15
     container_name: postgres_db
 
-
     restart: always
 
-
     environment:
-
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
-
     ports:
-
       - "5432:5432"
 
-
     volumes:
-
       - postgres_data:/var/lib/postgresql/data
 
-
     networks:
-
       - hotelpos_net
 
-
     healthcheck:
-
       test:
         [
           "CMD-SHELL",
           "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
         ]
-
       interval: 10s
       timeout: 5s
       retries: 5
-
 
 
 
@@ -222,34 +193,23 @@ services:
     image: mongo:4.4
     container_name: mongo_db
 
-
     restart: always
 
-
     environment:
-
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
 
-
     ports:
-
       - "27017:27017"
 
-
     volumes:
-
       - mongo_data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
-
     networks:
-
       - hotelpos_net
 
-
     healthcheck:
-
       test:
         [
           "CMD",
@@ -257,11 +217,9 @@ services:
           "--eval",
           "db.adminCommand('ping')"
         ]
-
       interval: 10s
       timeout: 5s
       retries: 5
-
 
 
 
@@ -273,9 +231,7 @@ volumes:
 
 
 
-
 networks:
 
   hotelpos_net:
-
     driver: bridge
