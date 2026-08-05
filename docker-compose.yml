@@ -8,6 +8,7 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/certs:/etc/letsencrypt
+      - ./nginx/html:/usr/share/nginx/html   # <-- added for Certbot webroot
     networks:
       - hotelpos_net
     restart: always
