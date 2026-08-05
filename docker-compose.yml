@@ -17,12 +17,14 @@ services:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       DB_NAME: ${POSTGRES_DB}
-      DB_URL: ${DB_URL}   # <-- added
+      DB_URL: ${DB_URL}
       JWT_SECRET: ${JWT_SECRET}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/   # <-- added
     depends_on:
       - postgres
+      - eureka
     restart: always
 
   orderservice:
@@ -36,12 +38,14 @@ services:
       DB_USER: ${MONGO_USER}
       DB_PASSWORD: ${MONGO_PASSWORD}
       DB_NAME: ${MONGO_DB}
-      MONGO_URI: ${MONGO_URI}   # <-- added
+      MONGO_URI: ${MONGO_URI}
       JWT_SECRET: ${JWT_SECRET}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/   # <-- added for orderservice too
     depends_on:
       - mongodb
+      - eureka
     restart: always
 
   apigateway:
